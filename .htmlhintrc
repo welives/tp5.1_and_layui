@@ -1,0 +1,25 @@
+{
+  "tagname-lowercase": false, //标签名必须小写
+  "attr-lowercase": false, //属性小写
+  "attr-value-double-quotes": true, //属性值双引号
+  "attr-value-not-empty": false, //属性值不能为空
+  "attr-no-duplication": true, //属性无重复
+  "doctype-first": false, //<!DOCTYPE html>文档声明在首行
+  "tag-pair": true, //标签配对
+  "tag-self-close": false, //关闭标签
+  "spec-char-escape": false, //SPEC-字符转义
+  "id-unique": true, //id唯一
+  "src-not-empty": true, //src不能为空
+  "title-require": true, //<head></head>中必须有title标签
+  "head-script-disabled": false, //头部禁用script脚本
+  "alt-require": false, //img标签必须要alt属性
+  "doctype-html5": true, //文档声明必须为html5
+  "id-class-value": false, //id和class的命名规范 多个单词间使用杠-，下划线_,还是camelCase驼峰
+  "style-disabled": false, //禁止style标签
+  "inline-style-disabled": false, //禁止内联样式
+  "inline-script-disabled": false, //内嵌脚本禁用
+  "space-tab-mixed-disabled": true, //空格制表符混合禁用
+  "id-class-ad-disabled": true, //ID和类无法使用ad关键字，它会被adblock软件阻止。
+  "href-abs-or-rel": false, //href必须是绝对的或相对的。
+  "attr-unsafe-chars": true //属性值不能使用不安全的字符。
+}
