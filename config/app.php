@@ -15,9 +15,9 @@
 
 return [
   // 应用名称
-  'app_name'               => Env::get('app.name', 'layui-cms'),
+  'app_name'               => Env::get('app.name', 'tp5.1_and_layui'),
   // 应用地址
-  'app_host'               => Env::get('app.host', 'http://www.cms.io'),
+  'app_host'               => Env::get('app.host', 'http://www.moyu.com'),
   // 应用调试模式
   'app_debug'              => Env::get('app_debug', false),
   // 应用Trace

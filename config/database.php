@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-07 22:19:48
+ * @LastEditTime: 2021-02-12 16:22:03
  * @Description: 数据库配置
  */
 // +----------------------------------------------------------------------
@@ -21,11 +21,11 @@ return [
   // 服务器地址
   'hostname'        => Env::get('database.hostname', '127.0.0.1'),
   // 数据库名
-  'database'        => Env::get('database.database', 'layui_cms'),
+  'database'        => Env::get('database.database', 'www_moyu_com'),
   // 用户名
-  'username'        => Env::get('database.username', 'root'),
+  'username'        => Env::get('database.username', 'www_moyu_com'),
   // 密码
-  'password'        => Env::get('database.password', 'H9MvYSqY3JmAC4aj'),
+  'password'        => Env::get('database.password', 'CPnATW5Erm3GMEZm'),
   // 端口
   'hostport'        => Env::get('database.hostport', 3306),
   // 连接dsn
