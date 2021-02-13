@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-12 16:46:12
- * @LastEditTime: 2021-02-12 21:31:09
+ * @LastEditTime: 2021-02-12 22:55:47
  * @Description: 登录控制器
  */
 
@@ -31,15 +31,15 @@ class Login extends Cross
     if ($info['password'] !== md5($data['password'])) {
       return json(['code' => 0, 'msg' => '账号或密码不正确']);
     }
-    $jwt = new JWT();
     $key = 'api';
     $payload = [
-      'iss' => 'http://www.moyu.com',
-      'aud' => 'http://www.moyu.com',
-      'iat' => time(),
-      'nbf' => time() + 60 * 60,
+      'iss' => 'http://www.moyu.com', // 签发者
+      'aud' => 'http://www.moyu.com', // 认证者
+      'iat' => time(), // 签发时间
+      'nbf' => time(), // 生效时间
+      'aid' => $info['id']
     ];
-    $token = $jwt->encode($payload, $key);
+    $token = JWT::encode($payload, $key);
     return json(['code' => 1, 'msg' => '登录成功', 'data' => $token]);
   }
 }
