@@ -1,4 +1,10 @@
 <?php
+/*
+ * @Author: Jandan
+ * @Date: 2021-02-07 20:56:34
+ * @LastEditTime: 2021-02-13 23:26:32
+ * @Description:
+ */
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -9,12 +15,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-Route::get('think', function () {
-    return 'hello,ThinkPHP5!';
+Route::group('admin', function () {
+  Route::rule('/', 'admin/login/index');
+  Route::rule('/login/vercode', 'admin/login/vercode');
+  Route::rule('/login/login', 'admin/login/login');
 });
-
-Route::get('hello/:name', 'index/hello');
-
-return [
-
-];

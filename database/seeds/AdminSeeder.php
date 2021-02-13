@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-12 20:54:40
- * @LastEditTime: 2021-02-12 21:11:14
+ * @LastEditTime: 2021-02-14 00:57:08
  * @Description:
  */
 
@@ -21,16 +21,14 @@ class AdminSeeder extends Seeder
   public function run()
   {
     $faker = Faker\Factory::create();
-    $data = [];
-    for ($i = 0; $i < 10; $i++) {
-      $data[] = [
-        'username'      => $faker->userName,
-        'password'      => md5($faker->password),
-      ];
-    }
+    $data = [
+      [
+        'username' => 'admin',
+        'password' => sha1(md5('123456')),
+        'nickname' => '超级管理员',
+        'email' => $faker->email,
+      ]
+    ];
     $this->insert('admin', $data);
-
-    // 清空数据表
-    // $this->execute('truncate table admin');
   }
 }

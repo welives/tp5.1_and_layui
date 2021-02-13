@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-12 18:31:10
- * @LastEditTime: 2021-02-14 00:40:18
- * @Description: 用户表
+ * @Date: 2021-02-14 00:05:39
+ * @LastEditTime: 2021-02-14 00:42:06
+ * @Description: 评论表
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class User extends Migrator
+class Comment extends Migrator
 {
   /**
    * Change Method.
@@ -34,14 +34,11 @@ class User extends Migrator
    */
   public function change()
   {
-    $table = $this->table('user', ['engine' => 'InnoDB', 'comment' => '用户表']);
-    $table->addColumn(Column::string('username')->setOptions(['comment' => '用户名']))
-      ->addColumn(Column::string('password')->setOptions(['comment' => '密码']))
-      ->addColumn(Column::string('nickname')->setOptions(['default' => '', 'comment' => '昵称']))
-      ->addColumn(Column::string('email')->setOptions(['default' => '', 'comment' => '邮箱']))
-      ->addColumn(Column::tinyInteger('sex')->setOptions(['default' => 2, 'comment' => '性别']))
+    $table = $this->table('comment', ['engine' => 'InnoDB', 'comment' => '评论表']);
+    $table->addColumn(Column::integer('user_id')->setOptions(['comment' => '所属用户']))
+      ->addColumn(Column::integer('article_id')->setOptions(['comment' => '所属文章']))
+      ->addColumn(Column::text('content')->setOptions(['comment' => '评论内容']))
       ->addColumn(Column::tinyInteger('status')->setOptions(['default' => 1, 'comment' => '状态']))
-      ->addIndex(['username'], ['unique' => true])
       ->addTimestamps()
       ->addSoftDelete()
       ->create();
