@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 21:13:47
- * @LastEditTime: 2021-02-09 02:12:48
+ * @LastEditTime: 2021-02-13 20:01:44
  * @Description:
  */
 
@@ -20,6 +20,11 @@ class Index extends Controller
    * @return \think\Response
    */
   public function index()
+  {
+    return view();
+  }
+
+  public function console()
   {
     return view();
   }

@@ -1,0 +1,23 @@
+<!--
+ * @Author: Jandan
+ * @Date: 2021-02-13 17:12:48
+ * @LastEditTime: 2021-02-13 20:19:53
+ * @Description: 基础模板
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{block name="title"}{/block}</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    {load href="/static/layuiadmin/layui/css/layui.css,/static/layuiadmin/style/admin.css" /} {block name="css"}{/block}
+  </head>
+  <body class="layui-layout-body">
+    {block name="content"}{/block} {load href="/static/layuiadmin/layui/layui.js" /} {block name="footer_js"}{/block}
+  </body>
+</html>
