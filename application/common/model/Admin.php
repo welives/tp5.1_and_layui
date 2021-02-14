@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:12:39
- * @LastEditTime: 2021-02-14 16:35:16
+ * @LastEditTime: 2021-02-14 22:21:33
  * @Description: 管理员表模型
  */
 
@@ -22,7 +22,10 @@ class Admin extends Model
     /**
      * 在模型中写逻辑处理
      */
-    validate('Admin')->doCheck($data);
+    $validate = validate('Admin');
+    if (!$validate->doCheck($data, 'login')) {
+      return $validate->getError();
+    }
     if (!captcha_check($data['vercode'])) {
       return '验证码错误';
     }
@@ -45,6 +48,33 @@ class Admin extends Model
       return true;
     } else {
       return '用户名或密码错误';
+    }
+  }
+
+  // 注册逻辑
+  public function register($data)
+  {
+    $validate = validate('Admin');
+    if (!$validate->doCheck($data, 'register')) {
+      return $validate->getError();
+    }
+    $result = $this->where('username', $data['username'])->find();
+    if ($result) {
+      return '用户名已存在';
+    }
+    $data['password'] = sha1(md5($data['password']));
+    $result = $this->allowField(true)->save($data);
+    if ($result) {
+      $result = $this->get($this->id);
+      $sessionData = [
+        'id' => $result['id'],
+        'nickname' => $result['nickname'],
+        'is_super' => $result['is_super'],
+      ];
+      session('admin', $sessionData);
+      return true;
+    } else {
+      return '注册失败';
     }
   }
 }

@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-14 19:17:04
+ * @LastEditTime: 2021-02-14 21:31:46
  * @Description: 登入控制器
  */
 
@@ -41,20 +41,29 @@ class Login extends Controller
      * 2.传递数据给模型
      * 3.返回结果
      */
-    if (!$this->request->isPost()) return $this->error('非法操作');
-    $data = request()->only(['username', 'password', 'vercode']);
-    $result = model('Admin')->login($data);
-    if ($result === true) {
-      return $this->success('登入成功', '@admin');
-    } else {
-      return $this->error($result);
+    if ($this->request->isAjax()) {
+      $data = request()->only(['username', 'password', 'vercode']);
+      $result = model('Admin')->login($data);
+      if ($result === true) {
+        return $this->success('登入成功', '@admin');
+      } else {
+        return $this->error($result);
+      }
     }
   }
 
   // 注册处理
   public function register()
   {
-    if (!$this->request->isPost()) return $this->error('非法操作');
+    if ($this->request->isAjax()) {
+      $data = request()->only(['email', 'username', 'password', 'confirm_password', 'vercode', 'nickname']);
+      $result = model('Admin')->register($data);
+      if ($result === true) {
+        return $this->success('注册成功', '@admin');
+      } else {
+        return $this->error($result);
+      }
+    }
   }
 
   // 退出

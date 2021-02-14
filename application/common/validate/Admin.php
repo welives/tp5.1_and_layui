@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:16:57
- * @LastEditTime: 2021-02-14 14:22:51
+ * @LastEditTime: 2021-02-14 21:34:29
  * @Description:
  */
 
@@ -19,8 +19,11 @@ class Admin extends Base
    */
   protected $rule = [
     'username|用户名' => 'require',
-    'password|密码' => 'require',
+    'password|密码' => 'require|alphaDash',
+    'confirm_password|确认密码' => 'require|confirm:password',
+    'email|邮箱' => 'require|email|unique:admin',
     'vercode|验证码' => 'require',
+    'nickname|昵称' => 'require|chsAlphaNum|unique:admin'
   ];
 
   /**
@@ -32,6 +35,7 @@ class Admin extends Base
   protected $message = [];
 
   protected $scene = [
-    'login' => ['username', 'password', 'vercode']
+    'login' => ['username', 'password', 'vercode'],
+    'register' => ['email', 'vercode', 'password', 'confirm_password', 'nickname']
   ];
 }

@@ -42,6 +42,17 @@ href="/static/layuiadmin/style/login.css" /} {/block} {block name="content"}
         </div>
       </div>
       <div class="layui-form-item">
+        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-username"></label>
+        <input
+          type="text"
+          name="username"
+          id="LAY-user-username"
+          lay-verify="required"
+          placeholder="用户名"
+          class="layui-input"
+        />
+      </div>
+      <div class="layui-form-item">
         <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-password"></label>
         <input
           type="password"
@@ -139,7 +150,8 @@ href="/static/layuiadmin/style/login.css" /} {/block} {block name="content"}
         //请求接口
         layer.load(0)
         admin.req({
-          url: layui.setter.base + 'json/user/reg.js', //实际使用请改成服务端真实接口
+          url: '/admin/login/register',
+          type: 'post',
           data: field,
           done: function (res) {
             layer.msg(
@@ -151,7 +163,7 @@ href="/static/layuiadmin/style/login.css" /} {/block} {block name="content"}
               },
               function () {
                 layer.closeAll('loading')
-                location.hash = res.url
+                location.href = res.url
               },
             )
           },

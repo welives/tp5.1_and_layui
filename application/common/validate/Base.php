@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 14:14:39
- * @LastEditTime: 2021-02-14 16:37:20
+ * @LastEditTime: 2021-02-14 21:55:56
  * @Description: 自定义验证器基类
  */
 
@@ -15,10 +15,6 @@ class Base extends Validate
   // 数据校验
   public function doCheck($data, $scene = '')
   {
-    $result = empty($scene) ? $this->check($data) : $this->scene($scene)->check($data);
-    if (!$result) {
-      return json(['code' => 0, 'msg' => $this->getError()])->send();
-    }
-    return true;
+    return empty($scene) ? $this->check($data) : $this->scene($scene)->check($data);
   }
 }
