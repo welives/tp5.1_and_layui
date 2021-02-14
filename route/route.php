@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-14 16:26:21
+ * @LastEditTime: 2021-02-14 17:31:56
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -15,11 +15,18 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+// 后台路由
 Route::group('admin', function () {
-  Route::get('/', 'admin/login/index');
+  Route::get('login', 'admin/login/index');
+  Route::get('register', 'admin/login/register');
+  Route::get('logout', 'admin/login/logout');
+  Route::get('vercode', 'admin/login/vercode');
   Route::post('login/login', 'admin/login/login');
-  Route::get('login/logout', 'admin/login/logout');
-  Route::get('login/vercode', 'admin/login/vercode');
-  Route::get('index/index', 'admin/index/index');
+  Route::get('/', 'admin/index/index');
   Route::get('index/console', 'admin/index/console');
+});
+
+// 前台路由
+Route::group('', function () {
+  Route::get('/', 'index');
 });

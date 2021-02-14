@@ -2,8 +2,8 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 21:13:47
- * @LastEditTime: 2021-02-14 15:42:02
- * @Description:
+ * @LastEditTime: 2021-02-14 17:58:33
+ * @Description: 后台首页控制器
  */
 
 namespace app\admin\controller;
@@ -20,6 +20,8 @@ class Index extends Base
    */
   public function index()
   {
+    $admin = session('admin');
+    $this->assign('admin', $admin);
     return view();
   }
 

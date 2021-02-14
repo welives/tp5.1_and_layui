@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 15:37:31
- * @LastEditTime: 2021-02-14 16:07:11
+ * @LastEditTime: 2021-02-14 17:33:52
  * @Description:
  */
 
@@ -18,7 +18,7 @@ class Base extends Controller
     parent::initialize();
     if (session('?admin')) {
     } else {
-      return $this->redirect('@admin');
+      return $this->redirect('@admin/login');
     }
   }
 }
