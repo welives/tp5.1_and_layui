@@ -2,17 +2,16 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 21:13:47
- * @LastEditTime: 2021-02-13 20:01:44
+ * @LastEditTime: 2021-02-14 15:42:02
  * @Description:
  */
 
 namespace app\admin\controller;
 
 use app\common\model\UserModel;
-use think\Controller;
 use think\Request;
 
-class Index extends Controller
+class Index extends Base
 {
   /**
    * 显示资源列表

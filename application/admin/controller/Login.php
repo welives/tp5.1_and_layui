@@ -2,14 +2,12 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-13 23:28:39
+ * @LastEditTime: 2021-02-14 16:27:29
  * @Description:
  */
 
 namespace app\admin\controller;
 
-use app\common\model\AdminModel;
-use Firebase\JWT\JWT;
 use think\captcha\Captcha;
 use think\Controller;
 use think\Request;
@@ -19,32 +17,36 @@ class Login extends Controller
   // 登入页
   public function index()
   {
+    if (session('?admin')) {
+      return redirect('admin/index/index');
+    }
     return view();
   }
 
   // 登入处理
   public function login()
   {
+    /**
+     * 控制器要做的事
+     * 1.接收数据
+     * 2.传递数据给模型
+     * 3.返回结果
+     */
     if (!$this->request->isPost()) return json(['code' => 0, 'msg' => '操作有误']);
-    $data = request()->param();
-    if (!captcha_check($data['vercode'])) {
-      return json(['code' => 0, 'msg' => '验证码错误']);
+    $data = request()->only(['username', 'password', 'vercode']);
+    $result = model('Admin')->login($data);
+    if ($result === true) {
+      return $this->success('登入成功', 'admin/index/index');
+    } else {
+      return $this->error($result);
     }
-    model('AdminModel')->login($data);
-    $payload = [
-      'iss' => 'http://www.moyu.com', // 签发者
-      'aud' => 'http://www.moyu.com', // 认证者
-      'iat' => time(), // 签发时间
-      'nbf' => time(), // 生效时间
-    ];
-    $token = JWT::encode($payload, env('jwt_key'));
-    return $this->success('登入成功', url('admin/index/index'), ['access_token' => $token]);
   }
 
   // 退出
   public function logout()
   {
-    return $this->success('退出成功', url('index'));
+    session('admin', null);
+    return $this->success('退出成功', '@admin');
   }
 
   // 生成验证码

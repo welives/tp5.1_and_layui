@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-13 23:26:32
+ * @LastEditTime: 2021-02-14 16:26:21
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -16,7 +16,10 @@
 // +----------------------------------------------------------------------
 
 Route::group('admin', function () {
-  Route::rule('/', 'admin/login/index');
-  Route::rule('/login/vercode', 'admin/login/vercode');
-  Route::rule('/login/login', 'admin/login/login');
+  Route::get('/', 'admin/login/index');
+  Route::post('login/login', 'admin/login/login');
+  Route::get('login/logout', 'admin/login/logout');
+  Route::get('login/vercode', 'admin/login/vercode');
+  Route::get('index/index', 'admin/index/index');
+  Route::get('index/console', 'admin/index/console');
 });
