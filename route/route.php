@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-14 19:16:31
+ * @LastEditTime: 2021-02-15 02:08:38
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -23,6 +23,7 @@ Route::group('admin', function () {
   Route::get('vercode', 'admin/login/vercode');
   Route::post('login/login', 'admin/login/login');
   Route::post('login/register', 'admin/login/register');
+  Route::get('login/sendEmailCode', 'admin/login/sendEmailCode');
   Route::get('/', 'admin/index/index');
   Route::get('index/console', 'admin/index/console');
 });

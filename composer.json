@@ -21,7 +21,8 @@
         "topthink/think-migration": "2.0.*",
         "fzaninotto/faker": "^1.9",
         "firebase/php-jwt": "^5.2",
-        "topthink/think-captcha": "2.0.*"
+        "topthink/think-captcha": "2.0.*",
+        "phpmailer/phpmailer": "^6.2"
     },
     "autoload": {
         "psr-4": {

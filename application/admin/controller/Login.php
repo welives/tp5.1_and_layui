@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-14 21:31:46
+ * @LastEditTime: 2021-02-15 02:40:36
  * @Description: 登入控制器
  */
 
@@ -81,5 +81,18 @@ class Login extends Controller
     ];
     $captcha = new Captcha($config);
     return $captcha->entry();
+  }
+
+  public function sendEmailCode()
+  {
+    $data = request()->param();
+    $title = '摸鱼邮箱验证码';
+    $content = '您的邮箱验证码为：' . '854184';
+    $result = mailTo($data['email'], $title, $content);
+    if ($result) {
+      return $this->success('发送成功');
+    } else {
+      return $this->error('发送失败');
+    }
   }
 }
