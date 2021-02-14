@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-14 17:31:56
+ * @LastEditTime: 2021-02-14 19:16:31
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -18,10 +18,11 @@
 // 后台路由
 Route::group('admin', function () {
   Route::get('login', 'admin/login/index');
-  Route::get('register', 'admin/login/register');
+  Route::get('reg', 'admin/login/reg');
   Route::get('logout', 'admin/login/logout');
   Route::get('vercode', 'admin/login/vercode');
   Route::post('login/login', 'admin/login/login');
+  Route::post('login/register', 'admin/login/register');
   Route::get('/', 'admin/index/index');
   Route::get('index/console', 'admin/index/console');
 });

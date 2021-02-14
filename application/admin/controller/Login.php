@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-14 17:55:49
+ * @LastEditTime: 2021-02-14 19:17:04
  * @Description: 登入控制器
  */
 
@@ -24,7 +24,7 @@ class Login extends Controller
   }
 
   // 注册页
-  public function register()
+  public function reg()
   {
     if (session('?admin')) {
       return $this->redirect('@admin');
@@ -49,6 +49,12 @@ class Login extends Controller
     } else {
       return $this->error($result);
     }
+  }
+
+  // 注册处理
+  public function register()
+  {
+    if (!$this->request->isPost()) return $this->error('非法操作');
   }
 
   // 退出
