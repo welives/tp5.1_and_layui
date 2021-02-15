@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-14 00:05:39
- * @LastEditTime: 2021-02-14 00:42:06
- * @Description: 评论表
+ * @Date: 2021-02-15 20:13:11
+ * @LastEditTime: 2021-02-15 20:13:19
+ * @Description: 分类表
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Comment extends Migrator
+class Cates extends Migrator
 {
   /**
    * Change Method.
@@ -34,11 +34,12 @@ class Comment extends Migrator
    */
   public function change()
   {
-    $table = $this->table('comment', ['engine' => 'InnoDB', 'comment' => '评论表']);
-    $table->addColumn(Column::integer('user_id')->setOptions(['comment' => '所属用户']))
-      ->addColumn(Column::integer('article_id')->setOptions(['comment' => '所属文章']))
-      ->addColumn(Column::text('content')->setOptions(['comment' => '评论内容']))
-      ->addColumn(Column::tinyInteger('status')->setOptions(['default' => 1, 'comment' => '状态']))
+    $table = $this->table('cates', ['signed' => false, 'comment' => '分类表']);
+    $table->addColumn(Column::char('label')->setOptions(['comment' => '分类名']))
+      ->addColumn(Column::char('key')->setOptions(['comment' => '分类的键']))
+      ->addColumn(Column::char('group')->setOptions(['default' => '', 'comment' => '分组']))
+      ->addColumn(Column::boolean('status')->setOptions(['default' => 1, 'comment' => '状态']))
+      ->addIndex(['key'], ['unique' => true])
       ->addTimestamps()
       ->addSoftDelete()
       ->create();

@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-15 02:40:36
+ * @LastEditTime: 2021-02-15 20:31:58
  * @Description: 登入控制器
  */
 
@@ -43,7 +43,7 @@ class Login extends Controller
      */
     if ($this->request->isAjax()) {
       $data = request()->only(['username', 'password', 'vercode']);
-      $result = model('Admin')->login($data);
+      $result = model('Admins')->login($data);
       if ($result === true) {
         return $this->success('登入成功', '@admin');
       } else {
@@ -57,7 +57,7 @@ class Login extends Controller
   {
     if ($this->request->isAjax()) {
       $data = request()->only(['email', 'username', 'password', 'confirm_password', 'vercode', 'nickname']);
-      $result = model('Admin')->register($data);
+      $result = model('Admins')->register($data);
       if ($result === true) {
         return $this->success('注册成功', '@admin');
       } else {

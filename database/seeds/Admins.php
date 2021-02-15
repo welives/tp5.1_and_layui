@@ -1,14 +1,14 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-12 20:54:40
- * @LastEditTime: 2021-02-14 00:57:08
+ * @Date: 2021-02-15 20:39:15
+ * @LastEditTime: 2021-02-15 21:15:25
  * @Description:
  */
 
 use think\migration\Seeder;
 
-class AdminSeeder extends Seeder
+class Admins extends Seeder
 {
   /**
    * Run Method.
@@ -20,15 +20,16 @@ class AdminSeeder extends Seeder
    */
   public function run()
   {
-    $faker = Faker\Factory::create();
     $data = [
       [
         'username' => 'admin',
         'password' => sha1(md5('123456')),
         'nickname' => '超级管理员',
-        'email' => $faker->email,
+        'email' => '10000@qq.com',
+        'is_super' => 1,
+        'role_id' => 1
       ]
     ];
-    $this->insert('admin', $data);
+    $this->insert('admins', $data);
   }
 }

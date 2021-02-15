@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-13 23:53:51
- * @LastEditTime: 2021-02-14 00:41:09
+ * @Date: 2021-02-15 20:14:01
+ * @LastEditTime: 2021-02-15 20:14:08
  * @Description: 导航表
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Nav extends Migrator
+class Navs extends Migrator
 {
   /**
    * Change Method.
@@ -34,11 +34,11 @@ class Nav extends Migrator
    */
   public function change()
   {
-    $table = $this->table('nav', ['engine' => 'InnoDB', 'comment' => '导航表']);
+    $table = $this->table('navs', ['signed' => false, 'comment' => '导航表']);
     $table->addColumn(Column::char('label')->setOptions(['comment' => '导航名']))
       ->addColumn(Column::char('key')->setOptions(['comment' => '导航的键']))
       ->addColumn(Column::unsignedInteger('sort')->setOptions(['default' => 100, 'comment' => '排序']))
-      ->addColumn(Column::tinyInteger('status')->setOptions(['default' => 1, 'comment' => '状态']))
+      ->addColumn(Column::boolean('status')->setOptions(['default' => 1, 'comment' => '状态']))
       ->addIndex(['key'], ['unique' => true])
       ->addTimestamps()
       ->addSoftDelete()

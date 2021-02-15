@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-14 00:34:00
- * @LastEditTime: 2021-02-14 00:42:27
- * @Description: 标签表
+ * @Date: 2021-02-15 20:17:01
+ * @LastEditTime: 2021-02-15 20:19:33
+ * @Description: 角色表
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Tag extends Migrator
+class Roles extends Migrator
 {
   /**
    * Change Method.
@@ -34,12 +34,10 @@ class Tag extends Migrator
    */
   public function change()
   {
-    $table = $this->table('tag', ['engine' => 'InnoDB', 'comment' => '标签表']);
-    $table->addColumn(Column::char('label')->setOptions(['comment' => '标签名']))
-      ->addColumn(Column::char('key')->setOptions(['comment' => '标签的键']))
-      ->addColumn(Column::unsignedInteger('sort')->setOptions(['default' => 100, 'comment' => '排序']))
-      ->addColumn(Column::tinyInteger('status')->setOptions(['default' => 1, 'comment' => '状态']))
-      ->addIndex(['key'], ['unique' => true])
+    $table = $this->table('roles', ['signed' => false, 'comment' => '角色表']);
+    $table->addColumn(Column::char('label')->setOptions(['comment' => '角色名']))
+      ->addColumn(Column::string('permission')->setOptions(['comment' => '拥有的权限']))
+      ->addColumn(Column::boolean('status')->setOptions(['default' => 1, 'comment' => '状态']))
       ->addTimestamps()
       ->addSoftDelete()
       ->create();

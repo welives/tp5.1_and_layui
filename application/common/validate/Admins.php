@@ -9,7 +9,7 @@
 namespace app\common\validate;
 
 
-class Admin extends Base
+class Admins extends Base
 {
   /**
    * 定义验证规则

@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:12:39
- * @LastEditTime: 2021-02-15 02:02:35
+ * @LastEditTime: 2021-02-15 21:17:48
  * @Description: 管理员表模型
  */
 
@@ -11,10 +11,10 @@ namespace app\common\model;
 use think\Model;
 use think\model\concern\SoftDelete;
 
-class Admin extends Model
+class Admins extends Model
 {
   use SoftDelete;
-  protected $table = 'admin';
+  protected $table = 'admins';
 
   // 登入逻辑
   public function login($data)
@@ -22,7 +22,7 @@ class Admin extends Model
     /**
      * 在模型中写逻辑处理
      */
-    $validate = validate('Admin');
+    $validate = validate('Admins');
     if (!$validate->doCheck($data, 'login')) {
       return $validate->getError();
     }
@@ -33,7 +33,7 @@ class Admin extends Model
     $result = $this->where([
       'username' => $data['username'],
       'password' => $data['password']
-    ])->find();
+    ])->with('role')->find()->hidden(['password']);
     if ($result) {
       // 判断是否被禁用
       if ($result['status'] === 0) {
@@ -43,6 +43,7 @@ class Admin extends Model
         'id' => $result['id'],
         'nickname' => $result['nickname'],
         'is_super' => $result['is_super'],
+        'role_name' => $result['role']['label']
       ];
       session('admin', $sessionData);
       return true;
@@ -54,7 +55,7 @@ class Admin extends Model
   // 注册逻辑
   public function register($data)
   {
-    $validate = validate('Admin');
+    $validate = validate('Admins');
     if (!$validate->doCheck($data, 'register')) {
       return $validate->getError();
     }
@@ -76,5 +77,11 @@ class Admin extends Model
     } else {
       return '注册失败';
     }
+  }
+
+  // 用户属于哪个角色 一对一关系
+  public function role()
+  {
+    return $this->belongsTo('Roles', 'role_id');
   }
 }

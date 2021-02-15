@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-12 18:31:10
- * @LastEditTime: 2021-02-14 00:40:18
- * @Description: 用户表
+ * @Date: 2021-02-15 20:12:41
+ * @LastEditTime: 2021-02-15 20:21:01
+ * @Description: 管理员表
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class User extends Migrator
+class Admins extends Migrator
 {
   /**
    * Change Method.
@@ -34,13 +34,14 @@ class User extends Migrator
    */
   public function change()
   {
-    $table = $this->table('user', ['engine' => 'InnoDB', 'comment' => '用户表']);
+    $table = $this->table('admins', ['signed' => false, 'comment' => '管理员表']);
     $table->addColumn(Column::string('username')->setOptions(['comment' => '用户名']))
       ->addColumn(Column::string('password')->setOptions(['comment' => '密码']))
       ->addColumn(Column::string('nickname')->setOptions(['default' => '', 'comment' => '昵称']))
       ->addColumn(Column::string('email')->setOptions(['default' => '', 'comment' => '邮箱']))
-      ->addColumn(Column::tinyInteger('sex')->setOptions(['default' => 2, 'comment' => '性别']))
-      ->addColumn(Column::tinyInteger('status')->setOptions(['default' => 1, 'comment' => '状态']))
+      ->addColumn(Column::boolean('status')->setOptions(['default' => 1, 'comment' => '状态']))
+      ->addColumn(Column::boolean('is_super')->setOptions(['default' => 0, 'comment' => '是否超管']))
+      ->addColumn(Column::integer('role_id')->setOptions(['default' => 0, 'comment' => '所属角色']))
       ->addIndex(['username'], ['unique' => true])
       ->addTimestamps()
       ->addSoftDelete()
