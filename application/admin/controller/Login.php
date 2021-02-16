@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-13 16:41:50
- * @LastEditTime: 2021-02-15 20:31:58
+ * @LastEditTime: 2021-02-17 02:46:17
  * @Description: 登入控制器
  */
 
@@ -42,8 +42,8 @@ class Login extends Controller
      * 3.返回结果
      */
     if ($this->request->isAjax()) {
-      $data = request()->only(['username', 'password', 'vercode']);
-      $result = model('Admins')->login($data);
+      $params = request()->only(['username', 'password', 'vercode']);
+      $result = model('Admins')->login($params);
       if ($result === true) {
         return $this->success('登入成功', '@admin');
       } else {
@@ -56,8 +56,8 @@ class Login extends Controller
   public function register()
   {
     if ($this->request->isAjax()) {
-      $data = request()->only(['email', 'username', 'password', 'confirm_password', 'vercode', 'nickname']);
-      $result = model('Admins')->register($data);
+      $params = request()->only(['email', 'username', 'password', 'confirm_password', 'vercode', 'nickname']);
+      $result = model('Admins')->register($params);
       if ($result === true) {
         return $this->success('注册成功', '@admin');
       } else {
@@ -85,10 +85,10 @@ class Login extends Controller
 
   public function sendEmailCode()
   {
-    $data = request()->param();
+    $params = request()->param();
     $title = '摸鱼邮箱验证码';
     $content = '您的邮箱验证码为：' . '854184';
-    $result = mailTo($data['email'], $title, $content);
+    $result = mailTo($params['email'], $title, $content);
     if ($result) {
       return $this->success('发送成功');
     } else {

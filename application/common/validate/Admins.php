@@ -2,12 +2,11 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:16:57
- * @LastEditTime: 2021-02-15 22:35:33
- * @Description:
+ * @LastEditTime: 2021-02-17 02:51:11
+ * @Description: 管理员表验证器
  */
 
 namespace app\common\validate;
-
 
 class Admins extends Base
 {

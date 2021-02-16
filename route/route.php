@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-16 14:30:57
+ * @LastEditTime: 2021-02-17 02:34:09
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -27,6 +27,7 @@ Route::group('admin', function () {
   Route::get('/', 'admin/index/index');
   Route::get('index/console', 'admin/index/console');
   Route::get('getMenus', 'admin/index/getMenus');
+  Route::get('user', 'admin/user/index');
 });
 
 // 前台路由

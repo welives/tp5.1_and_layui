@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-15 21:45:08
- * @LastEditTime: 2021-02-16 20:08:45
+ * @LastEditTime: 2021-02-17 02:31:20
  * @Description:
  */
 
@@ -44,23 +44,23 @@ class Auths extends Seeder
       ],
       [
         'pid' => 3,
-        'label' => '网站用户',
+        'label' => '用户管理',
         'key' => 'list',
-        'url' => url('admin/user/index'),
+        'url' => url('@admin/user'),
         'icon' => '',
       ],
       [
         'pid' => 3,
         'label' => '后台管理员',
         'key' => 'admin',
-        'url' => url('admin/admin/index'),
+        'url' => url('@admin/admin'),
         'icon' => '',
       ],
       [
         'pid' => 3,
         'label' => '角色管理',
         'key' => 'role',
-        'url' => url('admin/role/index'),
+        'url' => url('@admin/role'),
         'icon' => '',
       ],
       [
@@ -74,7 +74,7 @@ class Auths extends Seeder
         'pid' => 7,
         'label' => '网站设置',
         'key' => 'website',
-        'url' => url('admin/system/index'),
+        'url' => url('@admin/system'),
         'icon' => '',
       ],
       [
