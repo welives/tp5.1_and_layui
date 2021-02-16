@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-15 20:38:50
- * @LastEditTime: 2021-02-15 21:16:47
+ * @LastEditTime: 2021-02-16 14:06:32
  * @Description:
  */
 
@@ -24,6 +24,14 @@ class Roles extends Seeder
       [
         'label' => '超级管理员',
         'permission' => 0,
+      ],
+      [
+        'label' => '管理员',
+        'permission' => 0,
+      ],
+      [
+        'label' => '运营人员',
+        'permission' => '1,2,3,4',
       ]
     ];
     $this->insert('roles', $data);

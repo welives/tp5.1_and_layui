@@ -1,15 +1,15 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-15 20:17:01
- * @LastEditTime: 2021-02-15 22:23:00
- * @Description: 角色表
+ * @Date: 2021-02-15 21:39:38
+ * @LastEditTime: 2021-02-16 13:59:12
+ * @Description: 权限节点
  */
 
 use think\migration\Migrator;
 use think\migration\db\Column;
 
-class Roles extends Migrator
+class Auths extends Migrator
 {
   /**
    * Change Method.
@@ -34,10 +34,13 @@ class Roles extends Migrator
    */
   public function change()
   {
-    $table = $this->table('roles', ['signed' => false, 'comment' => '角色表']);
-    $table->addColumn(Column::char('label')->setOptions(['comment' => '角色名']))
-      ->addColumn(Column::string('desc')->setOptions(['default' => '', 'comment' => '角色描述']))
-      ->addColumn(Column::string('permission')->setOptions(['comment' => '拥有的权限']))
+    $table = $this->table('auths', ['signed' => false, 'comment' => '权限表']);
+    $table->addColumn(Column::unsignedInteger('pid')->setOptions(['default' => 0, 'comment' => '上级权限']))
+      ->addColumn(Column::char('label')->setOptions(['default' => '', 'comment' => '权限名']))
+      ->addColumn(Column::char('key')->setOptions(['default' => '', 'comment' => '权限键']))
+      ->addColumn(Column::char('url')->setOptions(['default' => '', 'comment' => '权限地址']))
+      ->addColumn(Column::char('icon')->setOptions(['default' => '', 'comment' => '权限图标']))
+      ->addColumn(Column::unsignedInteger('sort')->setOptions(['default' => 100, 'comment' => '排序']))
       ->addColumn(Column::boolean('status')->setOptions(['default' => 1, 'comment' => '状态']))
       ->addTimestamps()
       ->addSoftDelete()

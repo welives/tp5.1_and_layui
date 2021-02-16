@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-15 02:08:38
+ * @LastEditTime: 2021-02-16 14:30:57
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -26,6 +26,7 @@ Route::group('admin', function () {
   Route::get('login/sendEmailCode', 'admin/login/sendEmailCode');
   Route::get('/', 'admin/index/index');
   Route::get('index/console', 'admin/index/console');
+  Route::get('getMenus', 'admin/index/getMenus');
 });
 
 // 前台路由

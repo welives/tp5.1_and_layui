@@ -1,7 +1,7 @@
 <!--
  * @Author: Jandan
  * @Date: 2021-02-13 17:12:26
- * @LastEditTime: 2021-02-13 20:06:41
+ * @LastEditTime: 2021-02-16 22:27:42
  * @Description: 侧栏组件
 -->
 <div class="layui-side layui-side-menu">
@@ -15,23 +15,45 @@
       id="LAY-system-side-menu"
       lay-filter="layadmin-system-side-menu"
     >
-      <li data-name="home" class="layui-nav-item layui-nav-itemed">
-        <a href="javascript:;" lay-tips="主页" lay-direction="2">
-          <i class="layui-icon layui-icon-home"></i>
-          <cite>主页</cite>
-        </a>
-        <dl class="layui-nav-child">
-          <dd data-name="console" class="layui-this">
-            <a lay-href="{:url('console')}">控制台</a>
-          </dd>
-          <dd data-name="console">
-            <a lay-href="home/homepage1.html">主页一</a>
-          </dd>
-          <dd data-name="console">
-            <a lay-href="home/homepage2.html">主页二</a>
-          </dd>
-        </dl>
-      </li>
+      <script id="menuTpl" type="text/html">
+        <!-- 一级菜单 -->
+        {{# var path = layui.router().path}} {{# layui.each(d, function(index1,item1){ var classSelected1 = function(){
+        var match1 = (index1 == 0 && !path[0]) || item1.spread; if(match1){ return item1.child ? 'layui-nav-itemed' :
+        'layui-this' } return '' } }}
+        <li data-name="{{ item1.key }}" class="layui-nav-item {{ classSelected1() }}">
+          <a
+            href="javascript:;"
+            {{#if(!item1.child){}}lay-href="{{item1.url}}"
+            {{#}}}
+            lay-tips="{{ item1.label }}"
+            lay-direction="2"
+          >
+            <i class="layui-icon {{ item1.icon }}"></i>
+            <cite>{{item1.label}}</cite>
+          </a>
+          <!-- 二级菜单 -->
+          {{# if(item1.child){ }}
+          <dl class="layui-nav-child">
+            {{# layui.each(item1.child, function(index2,item2){ }}
+            <dd data-name="{{ item2.key }}">
+              <a href="javascript:;" {{#if(!item2.child){}}lay-href="{{item2.url}}" {{#}}}>{{item2.label}}</a>
+              <!-- 三级菜单 -->
+              {{# if(item2.child){ }}
+              <dl class="layui-nav-child">
+                {{# layui.each(item2.child, function(index3,item3){ }}
+                <dd data-name="{{ item3.key }}">
+                  <a href="javascript:;" {{#if(!item3.child){}}lay-href="{{item3.url}}" {{#}}}>{{ item3.label }}</a>
+                </dd>
+                {{# }) }}
+              </dl>
+              {{# } }}
+            </dd>
+            {{# }) }}
+          </dl>
+          {{# } }}
+        </li>
+        {{# }) }}
+      </script>
     </ul>
   </div>
 </div>

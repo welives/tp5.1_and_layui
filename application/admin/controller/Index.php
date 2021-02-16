@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 21:13:47
- * @LastEditTime: 2021-02-14 17:58:33
+ * @LastEditTime: 2021-02-16 22:35:50
  * @Description: 后台首页控制器
  */
 
@@ -24,6 +24,26 @@ class Index extends Base
     $this->assign('admin', $admin);
     return view();
   }
+
+  // 获取菜单
+  public function getMenus()
+  {
+    $admin = session('admin');
+    // 超管不需要验证
+    if ($admin['is_super'] || $admin['role_id'] === 1) {
+      $menus = model('auths')->field(['id', 'pid', 'label', 'key', 'url', 'icon'])->select();
+    } else {
+      $auths = model('roles')->field('permission')->get($admin['role_id']);
+      $menus = model('auths')->field(['id', 'pid', 'label', 'key', 'url', 'icon'])->where('id', 'in', $auths['permission'])->select();
+    }
+    if ($menus) {
+      return json(['code' => 1, 'msg' => '获取成功', 'data' => $menus]);
+    } else {
+      return json(['code' => 0, 'msg' => '获取失败']);
+    }
+  }
+
+
 
   public function console()
   {

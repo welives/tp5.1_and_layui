@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:12:39
- * @LastEditTime: 2021-02-15 21:17:48
+ * @LastEditTime: 2021-02-15 22:36:35
  * @Description: 管理员表模型
  */
 
@@ -43,6 +43,7 @@ class Admins extends Model
         'id' => $result['id'],
         'nickname' => $result['nickname'],
         'is_super' => $result['is_super'],
+        'role_id' => $result['role_id'],
         'role_name' => $result['role']['label']
       ];
       session('admin', $sessionData);
@@ -71,6 +72,8 @@ class Admins extends Model
         'id' => $result['id'],
         'nickname' => $result['nickname'],
         'is_super' => $result['is_super'],
+        'role_id' => $result['role_id'],
+        'role_name' => $result['role']['label']
       ];
       session('admin', $sessionData);
       return true;

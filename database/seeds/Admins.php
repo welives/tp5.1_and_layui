@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-15 20:39:15
- * @LastEditTime: 2021-02-15 21:15:25
+ * @LastEditTime: 2021-02-16 14:06:00
  * @Description:
  */
 
@@ -28,6 +28,14 @@ class Admins extends Seeder
         'email' => '10000@qq.com',
         'is_super' => 1,
         'role_id' => 1
+      ],
+      [
+        'username' => 'test',
+        'password' => sha1(md5('123123')),
+        'nickname' => '测试账号',
+        'email' => '10001@qq.com',
+        'is_super' => 0,
+        'role_id' => 3
       ]
     ];
     $this->insert('admins', $data);
