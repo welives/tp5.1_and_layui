@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:13:16
- * @LastEditTime: 2021-02-17 03:28:50
+ * @LastEditTime: 2021-02-17 13:25:08
  * @Description: 用户表模型
  */
 
@@ -16,6 +16,7 @@ class Users extends Model
   use SoftDelete;
   protected $table = 'users';
 
+  // 用户列表
   public function list($data)
   {
     $count = $this->where('status', 1)->count('id');

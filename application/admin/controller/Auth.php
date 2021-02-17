@@ -1,32 +1,25 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-17 02:20:28
- * @LastEditTime: 2021-02-17 14:36:25
+ * @Date: 2021-02-17 13:07:32
+ * @LastEditTime: 2021-02-17 18:03:13
  * @Description:
  */
 
 namespace app\admin\controller;
 
-use think\Controller;
 use think\Request;
 
-class User extends Base
+class Auth extends Base
 {
-  // 用户列表页
+  /**
+   * 显示资源列表
+   *
+   * @return \think\Response
+   */
   public function index()
   {
-    return view();
-  }
-
-  // 列表数据
-  public function list()
-  {
-    if (request()->isAjax()) {
-      $params = request()->param();
-      $result = model('Users')->list($params);
-      return json(['code' => 1, 'msg' => '获取成功', 'count' => $result['count'], 'data' => $result['data']]);
-    }
+    //
   }
 
   /**

@@ -151,7 +151,7 @@ href="/static/layuiadmin/style/login.css" /} {/block} {block name="content"}
         layer.load(0)
         admin.req({
           url: '/admin/login/register',
-          type: 'post',
+          type: 'POST',
           data: field,
           done: function (res) {
             layer.msg(

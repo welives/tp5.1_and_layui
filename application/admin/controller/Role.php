@@ -1,19 +1,18 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-17 02:20:28
- * @LastEditTime: 2021-02-17 14:36:25
+ * @Date: 2021-02-17 13:07:27
+ * @LastEditTime: 2021-02-17 18:14:23
  * @Description:
  */
 
 namespace app\admin\controller;
 
-use think\Controller;
 use think\Request;
 
-class User extends Base
+class Role extends Base
 {
-  // 用户列表页
+  // 角色列表页
   public function index()
   {
     return view();
@@ -24,7 +23,7 @@ class User extends Base
   {
     if (request()->isAjax()) {
       $params = request()->param();
-      $result = model('Users')->list($params);
+      $result = model('Roles')->list($params);
       return json(['code' => 1, 'msg' => '获取成功', 'count' => $result['count'], 'data' => $result['data']]);
     }
   }
@@ -84,14 +83,15 @@ class User extends Base
     //
   }
 
-  /**
-   * 删除指定资源
-   *
-   * @param  int  $id
-   * @return \think\Response
-   */
+  // 删除角色
   public function delete($id)
   {
-    //
+    $role = model('Roles')->get($id);
+    $res = $role->delete();
+    if ($res) {
+      return json(['code' => 1, 'msg' => '删除成功', 'data' => $res]);
+    } else {
+      return json(['code' => 0, 'msg' => '删除失败']);
+    }
   }
 }

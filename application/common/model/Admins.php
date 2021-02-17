@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-14 01:12:39
- * @LastEditTime: 2021-02-17 02:49:09
+ * @LastEditTime: 2021-02-17 14:10:43
  * @Description: 管理员表模型
  */
 
@@ -80,6 +80,16 @@ class Admins extends Model
     } else {
       return '注册失败';
     }
+  }
+
+  // 管理员列表
+  public function list($data)
+  {
+    $count = $this->where('status', 1)->count('id');
+    $result = $this->where('status', 1)->limit($data['limit'])->page($data['page'])->with(['role' => function ($query) {
+      $query->field(['id', 'label']);
+    }])->select()->hidden(['password']);
+    return ['data' => $result, 'count' => $count];
   }
 
   // 用户属于哪个角色 一对一关系

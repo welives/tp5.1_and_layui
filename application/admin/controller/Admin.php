@@ -1,19 +1,18 @@
 <?php
 /*
  * @Author: Jandan
- * @Date: 2021-02-17 02:20:28
- * @LastEditTime: 2021-02-17 14:36:25
+ * @Date: 2021-02-17 13:07:15
+ * @LastEditTime: 2021-02-17 14:36:15
  * @Description:
  */
 
 namespace app\admin\controller;
 
-use think\Controller;
 use think\Request;
 
-class User extends Base
+class Admin extends Base
 {
-  // 用户列表页
+  // 管理员列表页
   public function index()
   {
     return view();
@@ -24,7 +23,7 @@ class User extends Base
   {
     if (request()->isAjax()) {
       $params = request()->param();
-      $result = model('Users')->list($params);
+      $result = model('Admins')->list($params);
       return json(['code' => 1, 'msg' => '获取成功', 'count' => $result['count'], 'data' => $result['data']]);
     }
   }

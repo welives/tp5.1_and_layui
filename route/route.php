@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-07 20:56:34
- * @LastEditTime: 2021-02-17 02:34:09
+ * @LastEditTime: 2021-02-17 18:09:42
  * @Description:
  */
 // +----------------------------------------------------------------------
@@ -17,17 +17,23 @@
 
 // 后台路由
 Route::group('admin', function () {
-  Route::get('login', 'admin/login/index');
-  Route::get('reg', 'admin/login/reg');
-  Route::get('logout', 'admin/login/logout');
-  Route::get('vercode', 'admin/login/vercode');
-  Route::post('login/login', 'admin/login/login');
-  Route::post('login/register', 'admin/login/register');
-  Route::get('login/sendEmailCode', 'admin/login/sendEmailCode');
-  Route::get('/', 'admin/index/index');
+  Route::get('login', 'admin/login/index'); // 登入页
+  Route::get('reg', 'admin/login/reg'); // 注册页
+  Route::get('logout', 'admin/login/logout'); // 退出接口
+  Route::get('vercode', 'admin/login/vercode'); // 图形验证码接口
+  Route::post('login/login', 'admin/login/login'); // 登入接口
+  Route::post('login/register', 'admin/login/register'); // 注册接口
+  Route::get('login/sendEmailCode', 'admin/login/sendEmailCode'); // 发送邮箱验证码接口
+  Route::get('/', 'admin/index/index'); // 后台首页
   Route::get('index/console', 'admin/index/console');
-  Route::get('getMenus', 'admin/index/getMenus');
-  Route::get('user', 'admin/user/index');
+  Route::get('getMenus', 'admin/index/getMenus'); // 菜单列表接口
+  Route::get('user', 'admin/user/index'); // 用户列表页
+  Route::get('user/list', 'admin/user/list'); // 用户列表接口
+  Route::get('admin', 'admin/admin/index'); // 管理员列表页
+  Route::get('admin/list', 'admin/admin/list'); // 管理员列表接口
+  Route::get('role', 'admin/role/index'); // 角色列表页
+  Route::get('role/list', 'admin/role/list'); // 角色列表接口
+  Route::delete('role/delete', 'admin/role/delete'); // 角色删除接口
 });
 
 // 前台路由
