@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-17 13:07:27
- * @LastEditTime: 2021-02-17 18:14:23
+ * @LastEditTime: 2021-02-17 20:28:54
  * @Description:
  */
 
@@ -84,10 +84,10 @@ class Role extends Base
   }
 
   // 删除角色
-  public function delete($id)
+  public function delete()
   {
-    $role = model('Roles')->get($id);
-    $res = $role->delete();
+    $data = request()->only('ids');
+    $res = model('Roles')->destroy($data['ids']);
     if ($res) {
       return json(['code' => 1, 'msg' => '删除成功', 'data' => $res]);
     } else {

@@ -1,7 +1,7 @@
 <!--
  * @Author: Jandan
  * @Date: 2021-02-17 14:33:57
- * @LastEditTime: 2021-02-17 18:02:08
+ * @LastEditTime: 2021-02-17 20:22:42
  * @Description:
 -->
 {extend name="common/basic" /}{block name="title"}角色列表{/block}{block name="content"}
@@ -80,21 +80,24 @@
         batchdel: function () {
           var checkStatus = table.checkStatus('LAY-user-back-role'),
             checkData = checkStatus.data //得到选中的数据
-          console.log(checkData)
+
           if (!checkData.length) {
             return layer.msg('请选择数据')
           }
 
           layer.confirm('确定删除吗？', function (index) {
-            //执行 Ajax 后重载
-            /*
-          admin.req({
-            url: 'xxx'
-            //,……
-          });
-          */
-            table.reload('LAY-user-back-role')
-            layer.msg('已删除')
+            var ids = checkData.map((item) => {
+              return item.id
+            })
+            admin.req({
+              url: '/admin/role/delete',
+              type: 'DELETE',
+              data: { ids },
+              done: function (res) {
+                layer.msg(res.msg)
+                table.reload('LAY-user-back-role')
+              },
+            })
           })
         },
         add: function () {

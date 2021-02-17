@@ -1,7 +1,7 @@
 <!--
  * @Author: Jandan
  * @Date: 2021-02-17 13:15:46
- * @LastEditTime: 2021-02-17 14:26:54
+ * @LastEditTime: 2021-02-17 20:30:16
  * @Description:
 -->
 {extend name="common/basic" /}{block name="title"}管理员列表{/block}{block name="content"}
@@ -30,15 +30,19 @@
         <div class="layui-inline">
           <label class="layui-form-label">角色</label>
           <div class="layui-input-block">
-            <select name="role">
-              <option value="0">管理员</option>
-              <option value="1">超级管理员</option>
-              <option value="2">纠错员</option>
-              <option value="3">采购员</option>
-              <option value="4">推销员</option>
-              <option value="5">运营人员</option>
-              <option value="6">编辑</option>
-            </select>
+            <script
+              type="text/html"
+              template
+              lay-url="{:url('admin/role/list')}"
+              lay-done="layui.form.render('select')"
+            >
+              <select name="role" lay-filter="LAY-user-adminrole-type">
+                <option value="0">全部角色</option>
+                {{# layui.each(d.data, function(index,item){ }}
+                <option value="{{item.id}}">{{item.label}}</option>
+                {{# }) }}
+              </select>
+            </script>
           </div>
         </div>
         <div class="layui-inline">
@@ -101,6 +105,81 @@
         table.reload('LAY-user-back-manage', {
           where: field,
         })
+      })
+
+      //事件
+      var active = {
+        batchdel: function () {
+          var checkStatus = table.checkStatus('LAY-user-back-manage'),
+            checkData = checkStatus.data //得到选中的数据
+
+          if (!checkData.length) {
+            return layer.msg('请选择数据')
+          }
+
+          layer.prompt(
+            {
+              formType: 1,
+              title: '敏感操作，请验证口令',
+            },
+            function (value, index) {
+              layer.close(index)
+              admin.req({
+                url: '/admin/admin/deleteConfirm',
+                type: 'POST',
+                data: { password: value },
+                done: function (res) {
+                  layer.msg(res.msg)
+                  var ids = checkData.map((item) => {
+                    return item.id
+                  })
+                  admin.req({
+                    url: '/admin/admin/delete',
+                    type: 'DELETE',
+                    data: { ids },
+                    done: function (res) {
+                      layer.msg(res.msg)
+                      table.reload('LAY-user-back-manage')
+                    },
+                  })
+                },
+              })
+            },
+          )
+        },
+        add: function () {
+          layer.open({
+            type: 2,
+            title: '添加管理员',
+            content: 'adminform.html',
+            area: ['420px', '420px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+              var iframeWindow = window['layui-layer-iframe' + index],
+                submitID = 'LAY-user-back-submit',
+                submit = layero
+                  .find('iframe')
+                  .contents()
+                  .find('#' + submitID)
+
+              //监听提交
+              iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                var field = data.field //获取提交的字段
+
+                //提交 Ajax 成功后，静态更新表格中的数据
+                //$.ajax({});
+                table.reload('LAY-user-front-submit') //数据刷新
+                layer.close(index) //关闭弹层
+              })
+
+              submit.trigger('click')
+            },
+          })
+        },
+      }
+      $('.layui-btn.layuiadmin-btn-admin').on('click', function () {
+        var type = $(this).data('type')
+        active[type] ? active[type].call(this) : ''
       })
     })
 </script>

@@ -2,7 +2,7 @@
 /*
  * @Author: Jandan
  * @Date: 2021-02-17 02:20:28
- * @LastEditTime: 2021-02-17 14:36:25
+ * @LastEditTime: 2021-02-17 20:10:12
  * @Description:
  */
 
@@ -84,14 +84,15 @@ class User extends Base
     //
   }
 
-  /**
-   * 删除指定资源
-   *
-   * @param  int  $id
-   * @return \think\Response
-   */
-  public function delete($id)
+  // 删除用户
+  public function delete()
   {
-    //
+    $data = request()->only('ids');
+    $res = model('Users')->destroy($data['ids']);
+    if ($res) {
+      return json(['code' => 1, 'msg' => '删除成功', 'data' => $res]);
+    } else {
+      return json(['code' => 0, 'msg' => '删除失败']);
+    }
   }
 }

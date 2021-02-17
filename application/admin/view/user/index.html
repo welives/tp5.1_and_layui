@@ -1,7 +1,7 @@
 <!--
  * @Author: Jandan
  * @Date: 2021-02-17 02:21:11
- * @LastEditTime: 2021-02-17 14:46:49
+ * @LastEditTime: 2021-02-17 20:13:01
  * @Description:
 -->
 {extend name="common/basic" /}{block name="title"}用户列表{/block}{block name="content"}
@@ -31,7 +31,8 @@
           <label class="layui-form-label">性别</label>
           <div class="layui-input-block">
             <select name="sex">
-              <option value="0">不限</option>
+              <option value="-1">不限</option>
+              <option value="0">保密</option>
               <option value="1">男</option>
               <option value="2">女</option>
             </select>
@@ -64,11 +65,11 @@
       </script>
       <script type="text/html" id="table-useradmin-webuser">
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"
-          ><i class="layui-icon layui-icon-edit"></i>编辑</a
-        >
+          ><i class="layui-icon layui-icon-edit"></i>编辑
+        </a>
         <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"
-          ><i class="layui-icon layui-icon-delete"></i>删除</a
-        >
+          ><i class="layui-icon layui-icon-delete"></i>删除
+        </a>
       </script>
     </div>
   </div>
@@ -86,7 +87,8 @@
     .use(['index', 'useradmin', 'table'], function () {
       var $ = layui.$,
         form = layui.form,
-        table = layui.table
+        table = layui.table,
+        admin = layui.admin
 
       //监听搜索
       form.on('submit(LAY-user-front-search)', function (data) {
@@ -96,6 +98,82 @@
         table.reload('LAY-user-manage', {
           where: field,
         })
+      })
+
+      //事件
+      var active = {
+        batchdel: function () {
+          var checkStatus = table.checkStatus('LAY-user-manage'),
+            checkData = checkStatus.data //得到选中的数据
+
+          if (!checkData.length) {
+            return layer.msg('请选择数据')
+          }
+          layer.prompt(
+            {
+              formType: 1,
+              title: '敏感操作，请验证口令',
+            },
+            function (value, index) {
+              layer.close(index)
+              admin.req({
+                url: '/admin/admin/deleteConfirm',
+                type: 'POST',
+                data: { password: value },
+                done: function (res) {
+                  layer.msg(res.msg)
+                  var ids = checkData.map((item) => {
+                    return item.id
+                  })
+                  admin.req({
+                    url: '/admin/user/delete',
+                    type: 'DELETE',
+                    data: { ids },
+                    done: function (res) {
+                      layer.msg(res.msg)
+                      table.reload('LAY-user-manage')
+                    },
+                  })
+                },
+              })
+            },
+          )
+        },
+        add: function () {
+          layer.open({
+            type: 2,
+            title: '添加用户',
+            content: 'userform.html',
+            maxmin: true,
+            area: ['500px', '450px'],
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+              var iframeWindow = window['layui-layer-iframe' + index],
+                submitID = 'LAY-user-front-submit',
+                submit = layero
+                  .find('iframe')
+                  .contents()
+                  .find('#' + submitID)
+
+              //监听提交
+              iframeWindow.layui.form.on('submit(' + submitID + ')', function (data) {
+                var field = data.field //获取提交的字段
+
+                //提交 Ajax 成功后，静态更新表格中的数据
+                //$.ajax({});
+                table.reload('LAY-user-front-submit') //数据刷新
+                layer.close(index) //关闭弹层
+              })
+
+              submit.trigger('click')
+            },
+          })
+        },
+      }
+
+      $('.layui-btn.layuiadmin-btn-useradmin').on('click', function () {
+        var type = $(this).data('type')
+        active[type] ? active[type].call(this) : ''
       })
     })
 </script>
